@@ -51,9 +51,6 @@ export default {
     cardsProducts
   },
   props: {
-    browserLanguage: {
-      type: String,
-    },
     serverDatas: {
       type: Array,
     },
