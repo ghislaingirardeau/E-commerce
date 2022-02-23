@@ -37,10 +37,18 @@
         <v-col cols="2">
           <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
         </v-col>
-        <v-col cols="7">
+        <v-col cols="5">
           <v-toolbar-title>{{$t('layout.webTitle')}}</v-toolbar-title>
         </v-col>
-        <v-col cols="3" class="text-sm-center">
+        <v-col cols="5" class="text-sm-center">
+          <v-btn 
+            color="red lighten-2" 
+            outlined
+            @click="emptyCart" 
+            v-show="cartArticles > 0"
+          >
+            <v-icon>mdi-cart-remove</v-icon>
+          </v-btn>
           <v-btn @click="routeCart">
         <v-badge
           color="blue"
@@ -56,7 +64,10 @@
     </v-app-bar>
     <v-main>
       <v-container>
-        <Nuxt-child :browserLanguage="browserLanguage" :serverDatas="serverDatas" keep-alive />
+        <Nuxt-child 
+        :serverDatas="serverDatas" 
+        keep-alive 
+      />
       </v-container>
     </v-main>
 
@@ -91,7 +102,11 @@ export default {
   },
   methods: {
     routeCart() {
-      this.$router.push(`/_${this.browserLanguage}/carts`)
+      this.$router.push(`/carts`)
+    },
+    emptyCart() {
+      localStorage.removeItem('Ecommerce')
+      this.cartArticles = 0
     },
     async switchLanguage(lang) {
       this.browserLanguage = lang
