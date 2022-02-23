@@ -8,7 +8,6 @@
 
 <script>
 export default {
-    layout: "langLayout",
     data () {
         return {
             localBackend: '',

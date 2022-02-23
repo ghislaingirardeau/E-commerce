@@ -36,7 +36,6 @@ import skeletonCardsProducts from '@/components/skeletonCardsProducts.vue';
 import cardsProducts from '@/components/cardsProducts.vue';
 
 export default {
-  layout: "langLayout",
   data() {
     return {
       listProducts: undefined,

@@ -1,15 +1,14 @@
 <template>
-  <v-app dark>
+  <v-app >
     <v-navigation-drawer
       v-model="drawer"
-      :mini-variant="miniVariant"
       :clipped="clipped"
-      fixed
+      temporary
       app
     >
       <v-list>
         <v-list-item
-          v-for="(item, i) in items"
+          v-for="(item, i) in $t('navBar')"
           :key="i"
           :to="item.to"
           router
@@ -22,18 +21,42 @@
             <v-list-item-title v-text="item.title" />
           </v-list-item-content>
         </v-list-item>
+          
+        <v-btn @click="switchLanguage('fr')">fr</v-btn>
+        <v-btn @click="switchLanguage('en')">en</v-btn>
+
       </v-list>
     </v-navigation-drawer>
+
     <v-app-bar
       :clipped-left="clipped"
       fixed
       app
     >
-      <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
+      <v-row align="center" justify="space-between">
+        <v-col cols="2">
+          <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
+        </v-col>
+        <v-col cols="7">
+          <v-toolbar-title>{{$t('layout.webTitle')}}</v-toolbar-title>
+        </v-col>
+        <v-col cols="3" class="text-sm-center">
+          <v-btn @click="routeCart">
+        <v-badge
+          color="blue"
+          :content="cartArticles"
+          :value="cartArticles"
+        >
+          <v-icon>mdi-cart</v-icon>
+        </v-badge>
+          </v-btn>
+        </v-col>
+      </v-row>
+
     </v-app-bar>
     <v-main>
       <v-container>
-        <Nuxt keep-alive />
+        <Nuxt-child :browserLanguage="browserLanguage" :serverDatas="serverDatas" keep-alive />
       </v-container>
     </v-main>
 
@@ -51,36 +74,69 @@ export default {
   name: 'DefaultLayout',
   data () {
     return {
+      langs: [
+          "fr",
+          "en",
+          "kh",
+          "thai",
+          "indo"
+      ],
       clipped: false,
       drawer: false,
       fixed: false,
-      items: [
-        {
-          icon: 'mdi-apps',
-          title: 'Welcome',
-          to: '/'
-        },
-        {
-          icon: 'mdi-chart-bubble',
-          title: 'StripeAPI',
-          to: '/stripeAPI'
-        },
-        {
-          icon: 'mdi-chart-bubble',
-          title: 'StripeJS',
-          to: '/stripeJS'
-        },
-        {
-          icon: 'mdi-chart-bubble',
-          title: 'fetch nuxt',
-          to: '/fetch'
-        }
-      ],
-      miniVariant: false,
-      right: true,
-      rightDrawer: false,
-      title: 'Vuetify.js'
+      browserLanguage: 'en',
+      serverDatas: undefined,
+      cartArticles: 0
     }
-  }
+  },
+  methods: {
+    routeCart() {
+      this.$router.push(`/_${this.browserLanguage}/carts`)
+    },
+    async switchLanguage(lang) {
+      this.browserLanguage = lang
+      this.$i18n.locale = lang
+
+      const body = {
+        lang: lang
+      }
+      await this.$axios.$post('http://localhost:8000/api/i18n', JSON.stringify(body), {
+          headers: {
+          "content-type": "application/json",
+          },
+      })
+      .then(response => {
+          this.serverDatas = response
+      })  
+    }
+  },
+  created () {
+    this.browserLanguage = navigator.language.slice(0, 2)
+    this.$i18n.locale = this.browserLanguage
+
+    try {
+      let cartTotal = JSON.parse(localStorage.getItem('Ecommerce')).cart
+      this.cartArticles = cartTotal.length
+    } catch (error) {
+      console.log(error)
+    }
+
+    this.$nuxt.$on('add-cart', (playload) => {
+      this.cartArticles = playload.total
+    })
+  },
+  async mounted() {
+    const body = {
+      lang: this.browserLanguage
+    }
+    await this.$axios.$post('http://localhost:8000/api/i18n', JSON.stringify(body), {
+        headers: {
+        "content-type": "application/json",
+        },
+    })
+    .then(response => {
+        this.serverDatas = response
+    })  
+  },
 }
 </script>

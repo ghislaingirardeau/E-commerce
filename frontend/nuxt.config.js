@@ -10,7 +10,7 @@ export default {
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: 'tutos',
+    title: 'GG webdev E-commerce',
     htmlAttrs: {
       lang: 'en, fr'
     },
@@ -24,7 +24,6 @@ export default {
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
     ],
     script: [
-      {src: "https://js.stripe.com/v3/"}
     ]
   },
 

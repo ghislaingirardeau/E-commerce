@@ -1,8 +1,5 @@
 const express = require('express') /* IMPORTE LES PACKAGES */
-const stripe = require('./routes/stripe')
-const webhook = require('./routes/webhook')
 const i18n = require('./routes/i18n')
-
 
 const app = express()
 
@@ -13,13 +10,10 @@ app.use((req, res, next) => {
     next();
   });
 
-app.use('/api', webhook) // positionner avant express.json parce que nous voulons du express.raw CONF README
-
 app.use(express.json())
 
 app.get('/', (req, res) => res.send('Success!!!'))
 
-app.use('/api/stripe', stripe)
 app.use('/api/i18n', i18n)
 
 module.exports = app 
