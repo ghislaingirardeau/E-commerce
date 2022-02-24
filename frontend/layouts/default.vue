@@ -49,15 +49,18 @@
           >
             <v-icon>mdi-cart-remove</v-icon>
           </v-btn>
-          <v-btn @click="routeCart">
-        <v-badge
-          color="blue"
-          :content="cartArticles"
-          :value="cartArticles"
-        >
-          <v-icon>mdi-cart</v-icon>
-        </v-badge>
-          </v-btn>
+          <nuxt-link 
+            style="text-decoration: none;" 
+            :to="localePath('cart')"
+          >
+            <v-badge
+              color="blue"
+              :content="cartArticles"
+              :value="cartArticles"
+            >
+              <v-icon>mdi-cart</v-icon>
+            </v-badge>
+          </nuxt-link>
         </v-col>
       </v-row>
 
@@ -101,9 +104,6 @@ export default {
     }
   },
   methods: {
-    routeCart() {
-      this.$router.push(`/cart`)
-    },
     emptyCart() {
       localStorage.removeItem('Ecommerce')
       this.cartArticles = 0

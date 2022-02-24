@@ -3,7 +3,15 @@
         <h1>page du panier</h1>
         <p>{{cartArticles}}</p>
         <p v-if="listProducts">{{listProducts}}</p>
-        <v-btn color="primary" @click="backProducts">back</v-btn>
+        <nuxt-link 
+            style="text-decoration: none;" 
+            :to="localePath('/')"
+          >
+            <v-btn>
+                back
+            </v-btn>
+          </nuxt-link>
+
         
     </div>
 </template>
@@ -23,17 +31,10 @@
         },
         watch: {
             serverDatas() {
-                setTimeout(() => {
-                    this.listProducts = this.serverDatas
-                }, 1000);
+                this.listProducts = this.serverDatas
             }
         },
         methods: {
-            backProducts() {
-                this.$router.push('/')
-            },
-            test() {
-            }
         },
         mounted() {
             try{
@@ -42,7 +43,7 @@
                     this.listProducts = this.serverDatas
                 }, 1000);             
             } catch(e) {
-
+                console.log(e);
             }
         },
     }

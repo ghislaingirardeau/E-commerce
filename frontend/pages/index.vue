@@ -57,9 +57,7 @@ export default {
   },
   watch: {
     serverDatas() {
-      setTimeout(() => {
-        this.listProducts = this.serverDatas
-      }, 2000);
+      this.listProducts = this.serverDatas
     }
   },
   methods: {
@@ -69,6 +67,11 @@ export default {
     selectionByCategory() {
       console.log(this.category)
     }
+  },
+  mounted() {
+    setTimeout(() => {
+        this.listProducts = this.serverDatas
+    }, 1000);             
   },
 }
 </script>
