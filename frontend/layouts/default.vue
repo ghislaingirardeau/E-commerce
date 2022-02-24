@@ -58,7 +58,9 @@
               :content="cartArticles"
               :value="cartArticles"
             >
-              <v-icon>mdi-cart</v-icon>
+              <v-btn>
+                <v-icon>mdi-cart</v-icon>
+              </v-btn>
             </v-badge>
           </nuxt-link>
         </v-col>
