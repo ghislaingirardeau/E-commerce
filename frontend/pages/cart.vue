@@ -4,6 +4,7 @@
         <p>{{cartArticles}}</p>
         <p v-if="listProducts">{{listProducts}}</p>
         <v-btn color="primary" @click="backProducts">back</v-btn>
+        
     </div>
 </template>
 
@@ -12,7 +13,7 @@
         data() {
             return {
                 cartArticles: undefined,
-                listProducts: undefined
+                listProducts: undefined,
             }
         },
         props: {
@@ -30,17 +31,19 @@
         methods: {
             backProducts() {
                 this.$router.push('/')
+            },
+            test() {
             }
         },
         mounted() {
             try{
-                this.cartArticles = JSON.parse(localStorage.getItem('Ecommerce')).cart                
+                this.cartArticles = JSON.parse(localStorage.getItem('Ecommerce')).cart   
+                setTimeout(() => {
+                    this.listProducts = this.serverDatas
+                }, 1000);             
             } catch(e) {
 
             }
-        },
-        updated() {
-            console.log(this.listProducts)
         },
     }
 </script>

@@ -102,7 +102,7 @@ export default {
   },
   methods: {
     routeCart() {
-      this.$router.push(`/carts`)
+      this.$router.push(`/cart`)
     },
     emptyCart() {
       localStorage.removeItem('Ecommerce')
