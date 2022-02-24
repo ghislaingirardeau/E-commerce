@@ -38,7 +38,6 @@ import cardsProducts from '@/components/cardsProducts.vue';
 export default {
   data() {
     return {
-      listProducts: undefined,
       category: undefined,
       categoryItems: [
         "accessory",
@@ -55,9 +54,9 @@ export default {
       type: Array,
     },
   },
-  watch: {
-    serverDatas() {
-      this.listProducts = this.serverDatas
+  computed: {
+    listProducts() {
+      return this.serverDatas
     }
   },
   methods: {
@@ -69,9 +68,6 @@ export default {
     }
   },
   mounted() {
-    setTimeout(() => {
-        this.listProducts = this.serverDatas
-    }, 1000);             
   },
 }
 </script>

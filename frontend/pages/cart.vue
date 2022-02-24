@@ -2,7 +2,7 @@
     <div>
         <h1>page du panier</h1>
         <p>{{cartArticles}}</p>
-        <p v-if="listProducts">{{listProducts}}</p>
+        <p>{{listProducts}}</p>
         <nuxt-link 
             style="text-decoration: none;" 
             :to="localePath('/')"
@@ -11,8 +11,6 @@
                 back
             </v-btn>
           </nuxt-link>
-
-        
     </div>
 </template>
 
@@ -21,7 +19,6 @@
         data() {
             return {
                 cartArticles: undefined,
-                listProducts: undefined,
             }
         },
         props: {
@@ -29,19 +26,14 @@
                 type: Array,
             },
         },
-        watch: {
-            serverDatas() {
-                this.listProducts = this.serverDatas
+        computed: {
+            listProducts() {
+                return this.serverDatas
             }
-        },
-        methods: {
         },
         mounted() {
             try{
                 this.cartArticles = JSON.parse(localStorage.getItem('Ecommerce')).cart   
-                setTimeout(() => {
-                    this.listProducts = this.serverDatas
-                }, 1000);             
             } catch(e) {
                 console.log(e);
             }
