@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>page du panier</h1>
+    <h1>{{$t('cart.h1')}}</h1>
     <p>{{ cartDatas }}</p>
     
     <nuxt-link style="text-decoration: none" :to="localePath('/')">

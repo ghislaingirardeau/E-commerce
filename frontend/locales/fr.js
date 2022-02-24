@@ -28,5 +28,8 @@ export default {
         title: 'Village',
         to: '/stripeJS'
       }
-  ]
+  ],
+  cart: {
+    h1: 'Mon Panier'
+  }
 }
