@@ -20,6 +20,8 @@
     "webpack": "^4.46.0"
   },
   "devDependencies": {
-    "@nuxtjs/vuetify": "^1.12.3"
+    "@nuxtjs/eslint-config": "^8.0.0",
+    "@nuxtjs/vuetify": "^1.12.3",
+    "eslint": "^8.9.0"
   }
 }
