@@ -45,7 +45,7 @@
             color="red lighten-2" 
             outlined
             @click="emptyCart" 
-            v-show="cartArticles > 0"
+            v-show="totalArticles > 0"
           >
             <v-icon>mdi-cart-remove</v-icon>
           </v-btn>
@@ -55,12 +55,10 @@
           >
             <v-badge
               color="blue"
-              :content="cartArticles"
-              :value="cartArticles"
+              :content="totalArticles"
+              :value="totalArticles"
             >
-              <v-btn>
-                <v-icon>mdi-cart</v-icon>
-              </v-btn>
+              <v-icon>mdi-cart</v-icon>
             </v-badge>
           </nuxt-link>
         </v-col>
@@ -71,6 +69,7 @@
       <v-container>
         <Nuxt-child 
         :serverDatas="serverDatas" 
+        :cartArticles="cartArticles"
         keep-alive 
       />
       </v-container>
@@ -102,13 +101,15 @@ export default {
       fixed: false,
       browserLanguage: 'en',
       serverDatas: undefined,
-      cartArticles: 0
+      cartArticles: undefined,
+      totalArticles: 0
     }
   },
   methods: {
     emptyCart() {
       localStorage.removeItem('Ecommerce')
-      this.cartArticles = 0
+      this.totalArticles = 0 // cart quantity to 0
+      this.cartArticles = undefined // reinitialize cart
     },
     async switchLanguage(lang) {
       this.browserLanguage = lang
@@ -124,6 +125,7 @@ export default {
       })
       .then(response => {
           this.serverDatas = response
+          this.cartArticles = JSON.parse(localStorage.getItem('Ecommerce')) //restore basic cart for option translate product in cart 
       })  
     }
   },
@@ -132,20 +134,25 @@ export default {
     this.$i18n.locale = this.browserLanguage
 
     try {
-      let cartArticles = JSON.parse(localStorage.getItem('Ecommerce'))
-      if (cartArticles) {
+      this.cartArticles = JSON.parse(localStorage.getItem('Ecommerce'))
+      if (this.cartArticles) { // count the total quantity
         let getQuantity = []
-        cartArticles.forEach(element => {
+        this.cartArticles.forEach(element => {
           getQuantity.push(element.quantity)
         });
-        this.cartArticles = getQuantity.reduce((a, b) => a + b)
+        this.totalArticles = getQuantity.reduce((a, b) => a + b)
       }
     } catch (error) {
       console.log(error)
     }
 
-    this.$nuxt.$on('add-cart', (playload) => {
-      this.cartArticles = playload.total
+    this.$nuxt.$on('add-cart', (playload) => { // playload from the cardsProducts "add"
+      let getQuantity = [];
+      this.cartArticles = playload.cartArticles      
+      this.cartArticles.forEach((element) => {
+        getQuantity.push(element.quantity);
+      });
+      this.totalArticles = getQuantity.reduce((a, b) => a + b);
     })
   },
   async mounted() {

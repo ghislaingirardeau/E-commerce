@@ -1,11 +1,10 @@
 <template>
   <div>
     <h1>page du panier</h1>
-    <p>{{ cartArticles }}</p>
-    <p>{{ table }}</p>
-    <v-btn @click="test">test</v-btn>
+    <p>{{ cartDatas }}</p>
+    
     <nuxt-link style="text-decoration: none" :to="localePath('/')">
-      <v-btn> back </v-btn>
+      <v-btn @click="goBack"> back </v-btn>
     </nuxt-link>
   </div>
 </template>
@@ -14,39 +13,34 @@
 export default {
   data() {
     return {
-      cartArticles: undefined,
     };
   },
   props: {
-    serverDatas: {
-      type: Array,
-    },
+    serverDatas: Array,
+    cartArticles: Array
   },
   computed: {
-    listProducts() {
-      return this.serverDatas;
+    listProducts() { // update when i change the language
+        return this.serverDatas;
     },
-    table() {
-        this.cartArticles = JSON.parse(localStorage.getItem("Ecommerce"));
-        return this.cartArticles
+    cartDatas() { // update cart products when change langage
+        this.cartArticles.map((el) => {
+            let isInCart = (element) => element.id === el.product;
+            let index = this.serverDatas.findIndex(isInCart);
+            el.product = this.serverDatas[index];
+        });
+        return this.cartArticles;
     }
   },
   methods: {
-    test() {
-      const map1 = this.cartArticles.map((el) => {
-        let isInCart = (element) => element.id === el.product;
-        let index = this.listProducts.findIndex(isInCart);
-        console.log(index);
-        el.product = this.listProducts[index];
-      });
-    },
+      goBack() {
+            let cartArticles = JSON.parse(localStorage.getItem('Ecommerce'))
+            this.$nuxt.$emit("add-cart", {
+                cartArticles: cartArticles,
+            });
+      }
   },
   mounted() {
-    try {
-      this.cartArticles = JSON.parse(localStorage.getItem("Ecommerce"));
-    } catch (e) {
-      console.log(e);
-    }
   },
 };
 </script>

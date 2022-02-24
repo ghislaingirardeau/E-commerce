@@ -83,7 +83,6 @@ export default {
     },
     addToCart(id) {
       let cartArticles = JSON.parse(localStorage.getItem("Ecommerce"));
-      let getQuantity = [];
       if (cartArticles) {
         const isInCart = (element) => element.product === id;
         const getIndex = cartArticles.findIndex(isInCart);
@@ -107,14 +106,11 @@ export default {
           },
         ];
       }
+      // save locally the basic card
       localStorage.setItem("Ecommerce", JSON.stringify(cartArticles));
-      cartArticles.forEach((element) => {
-        getQuantity.push(element.quantity);
-      });
-      let totalArticles = getQuantity.reduce((a, b) => a + b);
-
+      // send the cart to the layout default for props to cart page
       this.$nuxt.$emit("add-cart", {
-        total: totalArticles,
+        cartArticles: cartArticles,
       });
     },
   },
