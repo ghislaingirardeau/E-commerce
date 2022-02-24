@@ -132,8 +132,14 @@ export default {
     this.$i18n.locale = this.browserLanguage
 
     try {
-      let cartTotal = JSON.parse(localStorage.getItem('Ecommerce')).cart
-      this.cartArticles = cartTotal.length
+      let cartArticles = JSON.parse(localStorage.getItem('Ecommerce'))
+      if (cartArticles) {
+        let getQuantity = []
+        cartArticles.forEach(element => {
+          getQuantity.push(element.quantity)
+        });
+        this.cartArticles = getQuantity.reduce((a, b) => a + b)
+      }
     } catch (error) {
       console.log(error)
     }
