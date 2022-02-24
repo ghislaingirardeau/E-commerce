@@ -103,17 +103,31 @@
             },
             addToCart(id) {
                 let cartArticles = JSON.parse(localStorage.getItem('Ecommerce'))
-                let totalArticles
+                let getQuantity = []
                 if(cartArticles) {
-                    totalArticles = cartArticles.cart.length + 1
-                    cartArticles.cart.push(id)
-                    localStorage.setItem('Ecommerce', JSON.stringify(cartArticles))
-                    
-                } else {
-                    totalArticles = 1
-                    let cart = {cart: [id]}
-                    localStorage.setItem('Ecommerce', JSON.stringify(cart))
+                  const isInCart = (element) => element.idProduct === id;
+                  const getIndex = cartArticles.findIndex(isInCart)
+                  if (getIndex === -1) { // the article is yet not in the cart
+                    const addInCart = {
+                      idProduct: id,
+                      quantity: 1
+                    }
+                    cartArticles.push(addInCart)
+                  } else { // article already in the cart
+                    cartArticles[getIndex].quantity++
+                  }
+                } else { // add first article
+                    cartArticles = [{
+                      idProduct: id,
+                      quantity: 1
+                      }]
                 }
+                localStorage.setItem('Ecommerce', JSON.stringify(cartArticles))
+                cartArticles.forEach(element => {
+                  getQuantity.push(element.quantity)
+                });
+                let totalArticles = getQuantity.reduce((a, b) => a + b)
+
                 this.$nuxt.$emit('add-cart', {
                     total: totalArticles
                 })
