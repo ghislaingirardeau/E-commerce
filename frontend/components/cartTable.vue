@@ -24,13 +24,6 @@
                     </th>
                 </tr>
             </thead>
-            <tbody v-if="cartDatas.length === 0">
-                <tr>
-                    <th class="text-center">
-                        no datas
-                    </th>
-                </tr>
-            </tbody>
             <tbody v-if="screenBreakpoint">
                 <tr
                 v-for="(item, index) in cartDatas"
@@ -45,7 +38,7 @@
                     <v-chip @click="updateQuantity(true, index)" elevation="2" small>+</v-chip>
                 </td>
                 <td class="text-center">
-                    <v-chip @click="removeItem(index)" elevation="2" x-small>X</v-chip>
+                    <v-icon @click="removeItem(index)">mdi-trash-can</v-icon>
                 </td>
                 <td class="text-center amountUnit">{{totalUnit(item.product.price, item.quantity)}} {{ $t("index.currency") }}</td>
                 </tr>
@@ -74,7 +67,7 @@
                 <tr>
                 <td>{{$t('cart.table.option')}}</td>
                 <td class="text-center">
-                    <v-chip @click="removeItem(index)" elevation="2" x-small>X</v-chip>
+                    <v-icon @click="removeItem(index)">mdi-trash-can</v-icon>
                 </td>
                 </tr>
                 <tr>
@@ -117,7 +110,7 @@
             updateQuantity: Function,
             removeItem: Function
         },
-        methods: {
+        computed: {
             screenBreakpoint() {
                 if (this.$vuetify.breakpoint.width > 600) {
                     this.height = '300px'
@@ -127,6 +120,8 @@
                     return false
                 }
             },
+        },
+        methods: {
             priceUnit(el) {
                 let length = el.length - 2;
                 let centimes = el.slice(length);
