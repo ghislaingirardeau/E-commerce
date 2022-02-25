@@ -4,28 +4,11 @@
     <v-col cols="12">
       <h1>{{$t('cart.h1')}}</h1>
     </v-col>
-    <v-container v-if="cartArticles">
-      <v-row v-for="(item, index) in cartDatas" :key="item.product.id" style="border: 2px solid red">
-        <v-col cols="4" style="border: 2px solid blue">
-          {{item.product.name}}
-        </v-col>
-        <v-col cols="4" style="border: 2px solid blue">
-          {{item.product.category}}
-        </v-col>
-        <v-col cols="4" class="text-center" style="border: 2px solid blue">
-          <v-chip @click="updateQuantity(false, index)" elevation="2" small>-</v-chip>
-          <span class="mx-2">{{item.quantity}}</span>
-          <v-chip @click="updateQuantity(true, index)" elevation="2" small>+</v-chip>
-          <v-btn @click="removeItem(index)" elevation="2" x-small>X</v-btn>
-        </v-col>
-      </v-row>
-    </v-container>
-    <p v-else>Carts is empty</p>
 
-    <v-col cols="12">
+    <v-col cols="12" v-if="screenBreakpoint">
       <v-simple-table
         fixed-header
-        height="300px"
+        :height="height"
       >
         <template v-slot:default>
           <thead>
@@ -72,6 +55,50 @@
       </v-simple-table>
     </v-col>
 
+    <v-col cols="12" v-else>
+      <v-simple-table
+        fixed-header
+        :height="height"
+      >
+        <template v-slot:default>
+          <thead>
+          </thead>
+          <tbody v-for="(item, index) in cartDatas"
+              :key="item.product.id">
+            <tr>
+              <td>name</td>
+              <td class="text-center">{{ item.product.name }}</td>
+            </tr>
+            <tr>
+              <td>prix</td>
+              <td class="text-center">{{ item.product.price }}</td>
+            </tr>
+            <tr>
+              <td>Quantity</td>
+              <td class="text-center">
+                <v-chip @click="updateQuantity(false, index)" elevation="2" small>-</v-chip>
+                <span class="mx-2">{{item.quantity}}</span>
+                <v-chip @click="updateQuantity(true, index)" elevation="2" small>+</v-chip>
+                <v-chip @click="removeItem(index)" elevation="2" x-small>X</v-chip>
+              </td>
+            </tr>
+            <tr>
+              <td>total Units</td>
+              <td class="text-center">
+                {{totalUnit(item.product.price, item.quantity)}} {{ $t("index.currency") }}
+              </td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr>
+                <th class="text-center">Totals</th>
+                <td class="text-center">21,000</td>
+            </tr>
+          </tfoot>
+        </template>
+      </v-simple-table>
+    </v-col>
+
     <nuxt-link style="text-decoration: none" :to="localePath('/')">
       <v-btn @click="goBack"> back </v-btn>
     </nuxt-link>
@@ -83,6 +110,7 @@ export default {
   data() {
     return {
       cartLocalStorage: undefined,
+      height: undefined
     };
   },
   props: {
@@ -98,6 +126,16 @@ export default {
         });
         this.cartLocalStorage = JSON.parse(localStorage.getItem('Ecommerce'))
         return this.cartArticles;
+    },
+    screenBreakpoint() {
+      if (this.$vuetify.breakpoint.width > 600) {
+        this.height = '300px'
+        return true
+      } else {
+        this.height = '600px'
+        return false
+        
+      }
     }
   },
   methods: {
