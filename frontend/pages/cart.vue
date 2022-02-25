@@ -15,6 +15,7 @@
         <v-btn @click="updateQuantity(false, index)" elevation="2" x-small>-</v-btn>
         <span class="mx-2">{{item.quantity}}</span>
         <v-btn @click="updateQuantity(true, index)" elevation="2" x-small>+</v-btn>
+        <v-btn @click="removeItem(index)" elevation="2" x-small>X</v-btn>
       </v-col>
     </v-row>
     </v-container>
@@ -71,6 +72,14 @@ export default {
             newValue(-1)
           }
         }
+      },
+      removeItem(index){
+        this.cartLocalStorage.splice(index, 1)
+        this.cartArticles.splice(index, 1)
+        localStorage.setItem("Ecommerce", JSON.stringify(this.cartLocalStorage)); 
+        this.$nuxt.$emit("add-cart", { 
+            cartArticles: this.cartLocalStorage,
+        });
       }
   },
   mounted() {
