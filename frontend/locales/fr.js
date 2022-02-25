@@ -30,6 +30,14 @@ export default {
       }
   ],
   cart: {
-    h1: 'Mon Panier'
+    h1: 'Mon Panier',
+    table: {
+      name: 'Article',
+      price: 'Prix',
+      quantity: 'Quantité',
+      option: 'Supprimer',
+      totalU: 'Total Unité',
+      total: 'Total'
+    }
   }
 }
