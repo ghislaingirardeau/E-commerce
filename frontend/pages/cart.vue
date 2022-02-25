@@ -12,9 +12,9 @@
         {{item.product.category}}
       </v-col>
       <v-col cols="4" class="text-center" style="border: 2px solid blue">
-        <v-btn @click="updateQuantity(false, index)" elevation="2" x-small>-</v-btn>
+        <v-chip @click="updateQuantity(false, index)" elevation="2" small>-</v-chip>
         <span class="mx-2">{{item.quantity}}</span>
-        <v-btn @click="updateQuantity(true, index)" elevation="2" x-small>+</v-btn>
+        <v-chip @click="updateQuantity(true, index)" elevation="2" small>+</v-chip>
         <v-btn @click="removeItem(index)" elevation="2" x-small>X</v-btn>
       </v-col>
     </v-row>
@@ -83,6 +83,7 @@ export default {
       }
   },
   mounted() {
+    console.log('cart loaded')
   },
 };
 </script>
