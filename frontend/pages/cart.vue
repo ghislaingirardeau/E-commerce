@@ -39,9 +39,6 @@ export default {
     cartArticles: Array
   },
   computed: {
-    listProducts() { // update when i change the language
-        return this.serverDatas;
-    },
     cartDatas() { // update cart products when change langage
         this.cartArticles.map((el) => {
             let isInCart = (element) => element.id === el.product;
@@ -70,7 +67,9 @@ export default {
         if (btn) {
           newValue(1)
         } else {
-          newValue(-1)
+          if ((this.cartArticles[index].quantity > 0) && (this.cartLocalStorage[index].quantity > 0)) {
+            newValue(-1)
+          }
         }
       }
   },
