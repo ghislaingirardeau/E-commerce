@@ -147,12 +147,16 @@ export default {
     }
 
     this.$nuxt.$on('add-cart', (playload) => { // playload from the cardsProducts "add"
-      let getQuantity = [];
       this.cartArticles = playload.cartArticles      
-      this.cartArticles.forEach((element) => {
-        getQuantity.push(element.quantity);
-      });
-      this.totalArticles = getQuantity.reduce((a, b) => a + b);
+      if(this.cartArticles) {
+        let getQuantity = [];
+        this.cartArticles.forEach((element) => {
+          getQuantity.push(element.quantity);
+        });
+        this.totalArticles = getQuantity.reduce((a, b) => a + b);
+      } else {
+        this.totalArticles = 0
+      }
     })
   },
   async mounted() {
