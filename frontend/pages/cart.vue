@@ -5,13 +5,13 @@
       <h1>{{$t('cart.h1')}}</h1>
     </v-col>
 
-    <v-col cols="12" v-if="screenBreakpoint">
+    <v-col cols="12" >
       <v-simple-table
         fixed-header
         :height="height"
       >
         <template v-slot:default>
-          <thead>
+          <thead v-if="screenBreakpoint">
             <tr>
               <th class="text-center">
                 Name
@@ -27,7 +27,7 @@
               </th>
             </tr>
           </thead>
-          <tbody>
+          <tbody v-if="screenBreakpoint">
             <tr
               v-for="(item, index) in cartDatas"
               :key="item.product.id"
@@ -43,27 +43,7 @@
               <td class="text-center">{{totalUnit(item.product.price, item.quantity)}} {{ $t("index.currency") }}</td>
             </tr>
           </tbody>
-          <tfoot>
-            <tr>
-                <th></th>
-                <th></th>
-                <th class="text-center">Totals</th>
-                <td class="text-center">21,000</td>
-            </tr>
-          </tfoot>
-        </template>
-      </v-simple-table>
-    </v-col>
-
-    <v-col cols="12" v-else>
-      <v-simple-table
-        fixed-header
-        :height="height"
-      >
-        <template v-slot:default>
-          <thead>
-          </thead>
-          <tbody v-for="(item, index) in cartDatas"
+          <tbody v-for="(item, index) in cartDatas" v-else
               :key="item.product.id">
             <tr>
               <td>name</td>
@@ -89,12 +69,21 @@
               </td>
             </tr>
           </tbody>
-          <tfoot>
+          <tfoot v-if="screenBreakpoint">
+            <tr>
+                <th></th>
+                <th></th>
+                <th class="text-center">Totals</th>
+                <td class="text-center">21,000</td>
+            </tr>
+          </tfoot>
+          <tfoot v-else>
             <tr>
                 <th class="text-center">Totals</th>
                 <td class="text-center">21,000</td>
             </tr>
           </tfoot>
+
         </template>
       </v-simple-table>
     </v-col>
