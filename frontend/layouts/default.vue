@@ -10,7 +10,7 @@
         <v-list-item
           v-for="(item, i) in $t('navBar')"
           :key="i"
-          :to="item.to"
+          :to="localePath(item.to)"
           router
           exact
         >
