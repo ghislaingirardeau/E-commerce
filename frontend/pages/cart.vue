@@ -5,6 +5,8 @@
       <h1>{{$t('cart.h1')}}</h1>
     </v-col>
 
+    <!-- <v-btn @click="totalCart">total</v-btn> -->
+
     <v-col cols="12" >
       <v-simple-table
         fixed-header
@@ -14,16 +16,19 @@
           <thead v-if="screenBreakpoint">
             <tr>
               <th class="text-center">
-                Name
+                {{$t('cart.table.name')}}
               </th>
               <th class="text-center">
-                Price
+                {{$t('cart.table.price')}}
               </th>
               <th class="text-center">
-                Quantity
+                {{$t('cart.table.quantity')}}
               </th>
               <th class="text-center">
-                Total Units
+                {{$t('cart.table.option')}}
+              </th>
+              <th class="text-center">
+                {{$t('cart.table.totalU')}}
               </th>
             </tr>
           </thead>
@@ -31,40 +36,51 @@
             <tr
               v-for="(item, index) in cartDatas"
               :key="item.product.id"
+              style="border: 2px blue solid"
             >
               <td class="text-center">{{ item.product.name }}</td>
-              <td class="text-center">{{ priceUnit(item.product.price) }}</td>
+              <td class="text-center">{{ priceUnit(item.product.price) }} {{ $t("index.currency") }}</td>
               <td class="text-center">
                 <v-chip @click="updateQuantity(false, index)" elevation="2" small>-</v-chip>
                 <span class="mx-2">{{item.quantity}}</span>
                 <v-chip @click="updateQuantity(true, index)" elevation="2" small>+</v-chip>
+              </td>
+              <td class="text-center">
                 <v-chip @click="removeItem(index)" elevation="2" x-small>X</v-chip>
               </td>
-              <td class="text-center">{{totalUnit(item.product.price, item.quantity)}} {{ $t("index.currency") }}</td>
+              <td class="text-center amountUnit">{{totalUnit(item.product.price, item.quantity)}} {{ $t("index.currency") }}</td>
             </tr>
           </tbody>
-          <tbody v-for="(item, index) in cartDatas" v-else
-              :key="item.product.id">
+          <tbody 
+            v-for="(item, index) in cartDatas" 
+            v-else
+            :key="item.product.id"
+          >
             <tr>
-              <td>name</td>
+              <td>{{$t('cart.table.name')}}</td>
               <td class="text-center">{{ item.product.name }}</td>
             </tr>
             <tr>
-              <td>prix</td>
-              <td class="text-center">{{ item.product.price }}</td>
+              <td>{{$t('cart.table.price')}}</td>
+              <td class="text-center">{{ item.product.price }} {{ $t("index.currency") }}</td>
             </tr>
             <tr>
-              <td>Quantity</td>
+              <td>{{$t('cart.table.quantity')}}</td>
               <td class="text-center">
                 <v-chip @click="updateQuantity(false, index)" elevation="2" small>-</v-chip>
                 <span class="mx-2">{{item.quantity}}</span>
                 <v-chip @click="updateQuantity(true, index)" elevation="2" small>+</v-chip>
+              </td>
+            </tr>
+            <tr>
+              <td>{{$t('cart.table.option')}}</td>
+              <td class="text-center">
                 <v-chip @click="removeItem(index)" elevation="2" x-small>X</v-chip>
               </td>
             </tr>
             <tr>
-              <td>total Units</td>
-              <td class="text-center">
+              <td>{{$t('cart.table.totalU')}}</td>
+              <td class="text-center amountUnit">
                 {{totalUnit(item.product.price, item.quantity)}} {{ $t("index.currency") }}
               </td>
             </tr>
@@ -73,17 +89,17 @@
             <tr>
                 <th></th>
                 <th></th>
+                <th></th>
                 <th class="text-center">Totals</th>
-                <td class="text-center">21,000</td>
+                <td class="text-center">{{totalCart}} {{ $t("index.currency") }}</td>
             </tr>
           </tfoot>
           <tfoot v-else>
             <tr>
                 <th class="text-center">Totals</th>
-                <td class="text-center">21,000</td>
+                <td class="text-center">{{totalCart}} {{ $t("index.currency") }}</td>
             </tr>
           </tfoot>
-
         </template>
       </v-simple-table>
     </v-col>
@@ -123,9 +139,21 @@ export default {
       } else {
         this.height = '600px'
         return false
-        
       }
-    }
+    },
+      totalCart() {
+        let count = []
+        this.cartArticles.forEach(element => {
+          count.push(element.product.price * element.quantity)
+        });
+        let total = count.reduce(
+          (a, b) => a + b,
+        ).toString()
+        let length = total.length - 2;
+        let centimes = total.slice(length);
+        let amount = total.slice(0, length);
+        return amount.concat(",", centimes);
+      },
   },
   methods: {
       goBack() {
