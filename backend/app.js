@@ -1,5 +1,6 @@
 const express = require('express') /* IMPORTE LES PACKAGES */
 const i18n = require('./routes/i18n')
+const email = require('./routes/email')
 
 const app = express()
 
@@ -15,5 +16,6 @@ app.use(express.json())
 app.get('/', (req, res) => res.send('Success!!!'))
 
 app.use('/api/i18n', i18n)
+app.use('/api/email', email)
 
 module.exports = app 
