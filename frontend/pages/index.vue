@@ -1,10 +1,15 @@
 <template>
   <v-row justify="center" align="center">
+
+    <projectDescription />
+
     <v-col cols="12" md="6" class="text-center">
       <h1>
           {{$t('index.h1')}}
       </h1>
+      
     </v-col>
+
     <v-col cols="6" md="3">
       <v-text-field
         :name="$t('index.search')"
@@ -34,6 +39,7 @@
 <script>
 import skeletonCardsProducts from '@/components/skeletonCardsProducts.vue';
 import cardsProducts from '@/components/cardsProducts.vue';
+import projectDescription from '@/components/projectDescription.vue';
 
 export default {
   data() {
@@ -42,12 +48,13 @@ export default {
       categoryItems: [
         "accessory",
         "encense"
-      ]
+      ],
     }
   },
   components: {
     skeletonCardsProducts,
-    cardsProducts
+    cardsProducts,
+    projectDescription
   },
   props: {
     serverDatas: {
@@ -65,7 +72,7 @@ export default {
     },
     selectionByCategory() {
       console.log(this.category)
-    }
+    },
   },
   mounted() {
   },

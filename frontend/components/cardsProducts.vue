@@ -49,9 +49,11 @@
                 {{ $t("index.cardClose") }}
               </v-btn>
               <v-spacer></v-spacer>
-              <v-btn text color="teal accent-4">
-                village link {{ item.communityId }}
-              </v-btn>
+              <nuxt-link style="text-decoration: none" :to="localePath(`/villages/${item.communityId}`)">
+                <v-btn text color="teal accent-4">
+                  village link {{ item.communityId }}
+                </v-btn>
+              </nuxt-link>
             </v-card-actions>
           </v-card>
         </v-expand-transition>

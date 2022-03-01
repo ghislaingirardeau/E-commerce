@@ -12,6 +12,20 @@ export default {
     cardTitle: "Origin",
     cardClose: "Close"
   },
+  project: [
+    {
+      h2: "Project vision",
+      description: "Description of the e-commerce website"
+    },
+    {
+      h2: "Budget allocation",
+      description: "Description of the budget shared, equal benefits"
+    },
+    {
+      h2: "How it work",
+      description: "Description here"
+    }
+  ],
   navBar: [
       {
         icon: 'mdi-apps',
@@ -19,14 +33,9 @@ export default {
         to: '/'
       },
       {
-        icon: 'mdi-format-list-checkbox',
-        title: 'Products',
-        to: '/stripeAPI'
-      },
-      {
         icon: 'mdi-cart',
-        title: 'Village',
-        to: '/stripeJS'
+        title: 'Villages',
+        to: '/villages'
       }
   ],
   cart: {
