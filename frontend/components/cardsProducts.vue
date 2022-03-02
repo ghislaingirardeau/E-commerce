@@ -16,9 +16,9 @@
           </span>
         </v-card-subtitle>
         <v-card-text>
-          <span class="text--primary">
+          <p class="text--primary">
             {{ item.description }}
-          </span>
+          </p>
         </v-card-text>
         <v-card-actions>
           <v-btn text color="teal accent-4" @click="showOrigin(item.id)">
@@ -37,11 +37,14 @@
             style="height: 100%"
           >
             <v-card-text class="pb-0">
-              <p class="text-h4 text--primary">
+              <h2 class="text--primary">
                 {{ $t("index.cardTitle") }}
-              </p>
+              </h2>
+              <h3>
+                {{ item.communityName }}
+              </h3>
               <p>
-                {{ item.community }}
+                {{ item.communityDescription}}
               </p>
             </v-card-text>
             <v-card-actions class="pt-0">
@@ -49,9 +52,9 @@
                 {{ $t("index.cardClose") }}
               </v-btn>
               <v-spacer></v-spacer>
-              <nuxt-link style="text-decoration: none" :to="localePath(`/villages/${item.communityId}`)">
+              <nuxt-link style="text-decoration: none" :to="localePath(`/villages/${item.id_community}`)">
                 <v-btn text color="teal accent-4">
-                  village link {{ item.communityId }}
+                  village link {{ item.id_community }}
                 </v-btn>
               </nuxt-link>
             </v-card-actions>
@@ -78,9 +81,10 @@ export default {
       this.revealCard = "origin" + id;
     },
     price(el) {
-      let length = el.length - 2;
-      let centimes = el.slice(length);
-      let amount = el.slice(0, length);
+      let unit = el.toString()
+      let length = unit.length - 2;
+      let centimes = unit.slice(length);
+      let amount = unit.slice(0, length);
       return amount.concat(",", centimes);
     },
     addToCart(id) {

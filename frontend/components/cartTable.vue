@@ -123,9 +123,10 @@
         },
         methods: {
             priceUnit(el) {
-                let length = el.length - 2;
-                let centimes = el.slice(length);
-                let amount = el.slice(0, length);
+                let unit = el.toString()
+                let length = unit.length - 2;
+                let centimes = unit.slice(length);
+                let amount = unit.slice(0, length);
                 return amount.concat(",", centimes);
             },
             totalUnit(price, quantity) {

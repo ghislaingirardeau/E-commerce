@@ -124,7 +124,7 @@ export default {
           },
       })
       .then(response => {
-          this.serverDatas = response.products
+          this.serverDatas = response
           this.cartArticles = JSON.parse(localStorage.getItem('Ecommerce')) //restore basic cart for option translate product in cart 
       })  
     }
@@ -169,7 +169,8 @@ export default {
         },
     })
     .then(response => {
-        this.serverDatas = response.products
+        this.serverDatas = response
+        console.log(response);
     })  
   },
 }
