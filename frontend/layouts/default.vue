@@ -118,13 +118,13 @@ export default {
       const body = {
         lang: lang
       }
-      await this.$axios.$post('http://localhost:8000/api/i18n', JSON.stringify(body), {
+      await this.$axios.$post('http://localhost:8000/api/i18n/products', JSON.stringify(body), {
           headers: {
           "content-type": "application/json",
           },
       })
       .then(response => {
-          this.serverDatas = response
+          this.serverDatas = response.products
           this.cartArticles = JSON.parse(localStorage.getItem('Ecommerce')) //restore basic cart for option translate product in cart 
       })  
     }
@@ -163,13 +163,13 @@ export default {
     const body = {
       lang: this.browserLanguage
     }
-    await this.$axios.$post('http://localhost:8000/api/i18n', JSON.stringify(body), {
+    await this.$axios.$post('http://localhost:8000/api/i18n/products', JSON.stringify(body), {
         headers: {
         "content-type": "application/json",
         },
     })
     .then(response => {
-        this.serverDatas = response
+        this.serverDatas = response.products
     })  
   },
 }

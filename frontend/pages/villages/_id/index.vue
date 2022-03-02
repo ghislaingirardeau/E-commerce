@@ -20,17 +20,6 @@ export default {
         }
     },
     mounted () {
-        /* const body = {
-            lang: this.lang
-        }
-        await this.$axios.$post('http://localhost:8000/api/i18n', JSON.stringify(body), {
-            headers: {
-            "content-type": "application/json",
-            },
-        })
-        .then(response => {
-            this.localBackend = response
-        }) */
         
     },
 }

@@ -14,6 +14,9 @@
       <v-sheet
         :color="colors[i]"
         height="100%"
+        elevation="4"
+        class="ma-2"
+        shaped
       >
         <v-row
           class="fill-height"
