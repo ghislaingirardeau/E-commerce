@@ -170,7 +170,6 @@ export default {
     })
     .then(response => {
         this.serverDatas = response
-        console.log(response);
     })  
   },
 }

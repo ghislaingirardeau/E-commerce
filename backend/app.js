@@ -1,6 +1,7 @@
 const express = require('express') /* IMPORTE LES PACKAGES */
 const i18n = require('./routes/i18n')
 const email = require('./routes/email')
+const path = require('path')
 
 const app = express()
 
@@ -14,6 +15,7 @@ app.use((req, res, next) => {
 app.use(express.json())
 
 app.get('/', (req, res) => res.send('Success!!!'))
+app.use('/images', express.static(path.join(__dirname, 'images'))) 
 
 app.use('/api/i18n', i18n)
 app.use('/api/email', email)

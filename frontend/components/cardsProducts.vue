@@ -4,7 +4,7 @@
       <v-card class="mx-auto" max-width="344" elevation="4">
         <v-img
           height="200"
-          src="https://cdn.vuetifyjs.com/images/cards/cooking.png"
+          :src="item.image_url"
         ></v-img>
         <v-card-title primary-title>
           {{ item.name }}
@@ -15,7 +15,7 @@
             {{ price(item.price) }} {{ $t("index.currency") }}
           </span>
         </v-card-subtitle>
-        <v-card-text>
+        <v-card-text class="description--height">
           <p class="text--primary">
             {{ item.description }}
           </p>
@@ -36,13 +36,13 @@
             class="transition-fast-in-fast-out v-card--reveal"
             style="height: 100%"
           >
+            <v-card-title>
+              {{ $t("index.cardTitle") }}
+            </v-card-title>
+            <v-card-subtitle>
+              {{ item.communityName }}
+            </v-card-subtitle>
             <v-card-text class="pb-0">
-              <h2 class="text--primary">
-                {{ $t("index.cardTitle") }}
-              </h2>
-              <h3>
-                {{ item.communityName }}
-              </h3>
               <p>
                 {{ item.communityDescription}}
               </p>
@@ -126,5 +126,8 @@ export default {
 <style lang="scss" scoped>
 .price {
   float: right;
+}
+.description--height{
+  height: 100px;
 }
 </style>
