@@ -11,10 +11,11 @@ function closeDb(connection) {
 }
 
 exports.allDatas = async (req, res, next) => {
+
     const connection = await mysql.createConnection(config)
     if (connection) {
 
-        const sql = `SELECT products_${req.body.lang}.id_product AS id, products_${req.body.lang}.name, products_${req.body.lang}.description, image_url, price, products.id_community AS id_community, communities_${req.body.lang}.name AS communityName, communities_${req.body.lang}.description AS communityDescription FROM products_${req.body.lang} INNER JOIN products ON products_${req.body.lang}.id_product=products.id_product INNER JOIN communities_${req.body.lang} ON products.id_community=communities_${req.body.lang}.id_community;`
+        const sql = `SELECT products_${req.body.lang}.id_product AS id, products_${req.body.lang}.name, category, products_${req.body.lang}.description, image_url, price, products.id_community AS id_community, communities_${req.body.lang}.name AS communityName, communities_${req.body.lang}.description AS communityDescription FROM products_${req.body.lang} INNER JOIN products ON products_${req.body.lang}.id_product=products.id_product INNER JOIN communities_${req.body.lang} ON products.id_community=communities_${req.body.lang}.id_community;`
 
         connection.query(sql, (error, results, fields) => {
 
