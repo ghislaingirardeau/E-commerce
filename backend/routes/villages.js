@@ -1,8 +1,8 @@
 const express = require('express')
-const email = require('../controllers/email')
+const villages = require('../controllers/villages')
 
 const router = express.Router()
 
-router.post('/', email.send)
+router.post('/', villages.allVillages)
 
 module.exports = router

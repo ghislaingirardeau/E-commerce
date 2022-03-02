@@ -7,7 +7,6 @@
       <h1>
           {{$t('index.h1')}}
       </h1>
-      
     </v-col>
 
     <v-col cols="6" md="3">

@@ -10,13 +10,6 @@
 export default {
     data () {
         return {
-            localBackend: '',
-            lang: 'fr',
-            value: '',
-            items: [
-                'fr',
-                'en'
-            ]
         }
     },
     mounted () {
