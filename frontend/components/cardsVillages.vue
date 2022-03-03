@@ -10,23 +10,25 @@
                 height="200px"
                 src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
                 >
-                <v-card-title>{{item.name}}</v-card-title>
+                    <v-card-title>{{item.name}}</v-card-title>
                 </v-img>
                 <v-card-subtitle class="pb-0">
-                Location
+                    Location
                 </v-card-subtitle>
                 <v-card-text class="text--primary">
-                <div>{{item.description}}</div>
-                specialities, producer...
+                    <div>{{item.description}}</div>
+                    specialities, producer...
                 </v-card-text>
                 <v-card-actions>
-                <v-btn
-                    color="orange"
-                    text
-                >
-                    Explore
-                </v-btn>
-                </v-card-actions>
+                    <nuxt-link style="text-decoration: none" :to="localePath({ name: 'villages-id', params: {id: item.id_community, data: item}})">
+                        <v-btn
+                            color="orange"
+                            text
+                        >
+                            Explore
+                        </v-btn>
+                    </nuxt-link>
+                </v-card-actions> 
             </v-card>       
         </v-col>
     </v-row>

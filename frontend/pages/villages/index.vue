@@ -2,7 +2,7 @@
     <v-row justify="center" align="center">
         <v-col cols="12" md="6" class="text-center">
             <h1>
-                $t('village.h1')
+                {{$t('village.h1')}}
             </h1>
         </v-col>
 
