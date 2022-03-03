@@ -2,6 +2,18 @@ export default {
   layout: {
     webTitle: 'My e-commerce webite'
   },
+  navBar: [
+    {
+      icon: 'mdi-apps',
+      title: 'Welcome',
+      to: '/'
+    },
+    {
+      icon: 'mdi-cart',
+      title: 'Villages',
+      to: '/villages'
+    }
+  ],
   index: {
     h1: 'All products list',
     search: 'Search',
@@ -26,18 +38,9 @@ export default {
       description: "Description here"
     }
   ],
-  navBar: [
-      {
-        icon: 'mdi-apps',
-        title: 'Welcome',
-        to: '/'
-      },
-      {
-        icon: 'mdi-cart',
-        title: 'Villages',
-        to: '/villages'
-      }
-  ],
+  village: {
+    h1: 'All villages registered',
+  },
   cart: {
     h1: 'My cart',
     table: {

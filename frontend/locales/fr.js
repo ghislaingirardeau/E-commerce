@@ -2,6 +2,18 @@ export default {
   layout: {
     webTitle: 'Mon site e-commerce'
   },
+  navBar: [
+    {
+      icon: 'mdi-apps',
+      title: 'Accueil',
+      to: '/'
+    },
+    {
+      icon: 'mdi-cart',
+      title: 'Villages',
+      to: '/villages'
+    }
+  ],
   index: {
     h1: 'Listes de tous les produits',
     search: 'Rechercher',
@@ -26,18 +38,9 @@ export default {
       description: "Description du comment ca marche"
     }
   ],
-  navBar: [
-      {
-        icon: 'mdi-apps',
-        title: 'Accueil',
-        to: '/'
-      },
-      {
-        icon: 'mdi-cart',
-        title: 'Villages',
-        to: '/villages'
-      }
-  ],
+  village: {
+    h1: 'Tous nos villages référencés',
+  },
   cart: {
     h1: 'Mon Panier',
     table: {

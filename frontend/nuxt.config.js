@@ -12,7 +12,7 @@ export default {
   head: {
     title: 'GG webdev E-commerce',
     htmlAttrs: {
-      lang: 'en, fr'
+      lang: 'en, fr, km'
     },
     meta: [
       { charset: 'utf-8' },
@@ -56,6 +56,7 @@ export default {
   locales: [
     { code: 'en', iso: 'en-US', file: 'en.js' },
     { code: 'fr', iso: 'fr-FR', file: 'fr.js' },
+    { code: 'kh', iso: 'km-KH', file: 'kh.js' },
   ],
   baseUrl: '',
   defaultLocale: 'en',

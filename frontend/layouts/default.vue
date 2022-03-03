@@ -24,6 +24,7 @@
           
         <v-btn @click="switchLanguage('fr')">fr</v-btn>
         <v-btn @click="switchLanguage('en')">en</v-btn>
+        <v-btn @click="switchLanguage('kh')">kh</v-btn>
 
       </v-list>
     </v-navigation-drawer>
