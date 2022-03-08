@@ -48,7 +48,8 @@
         </template>
       </v-simple-table>
     </v-col>
-    
+
+    <onlinePayment />
 
     <nuxt-link style="text-decoration: none" :to="localePath('/')">
       <v-btn @click="goBack"> back </v-btn>
@@ -58,6 +59,7 @@
 
 <script>
 import cartTable from '@/components/cartTable.vue';
+import onlinePayment from '@/components/onlinePayment.vue';
 
 export default {
   data() {
@@ -72,6 +74,7 @@ export default {
   },
   components: {
     cartTable,
+    onlinePayment
   },
   computed: {
     cartDatas() { // update cart products when change langage

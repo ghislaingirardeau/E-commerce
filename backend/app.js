@@ -1,6 +1,7 @@
 const express = require('express') /* IMPORTE LES PACKAGES */
 const i18n = require('./routes/i18n')
 const villages = require('./routes/villages')
+const stripe = require('./routes/stripe')
 const path = require('path')
 
 const app = express()
@@ -19,5 +20,6 @@ app.use('/images', express.static(path.join(__dirname, 'images')))
 
 app.use('/api/i18n', i18n)
 app.use('/api/villages', villages)
+app.use('/api/stripe', stripe)
 
 module.exports = app 
