@@ -19,6 +19,7 @@ export default {
     search: 'Search',
     category: 'Category',
     currency: "$",
+    currencyName: "usd",
     cardMore: "Learn more",
     cardCart: "Add cart",
     cardTitle: "Origin",

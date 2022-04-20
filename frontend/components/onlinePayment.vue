@@ -1,11 +1,10 @@
 <template>
     <v-row class="my-5">
         <v-col cols='10'>
-            <h2>Show payment element</h2>
+            <h2>Show payment element</h2>{{cardDetail}}
         </v-col>
         <v-col cols='10'>
             <p>possibilité de personnaliser les boutons payer et annuler</p>
-            <p>inconvenient = recup des données à enregistrer sur la page success ??</p>
         </v-col>
         <v-col cols='10'>
             <v-btn color='primary' @click="showPaymentElement">Afficher le paiement</v-btn>
@@ -24,12 +23,21 @@
         data() {
             return{
                 paymentIntentId: undefined,
-                amount: {
-                    amount: 211, 
-                    currency: 'eur',
-                    paymentMethod: 'card'
-                },
                 showCardElement: false
+            }
+        },
+        props: {
+            totalCart: String
+        },
+        computed: {
+            cardDetail() {
+                let amount = this.totalCart.split('.')
+                let num = amount[0].concat(amount[1])
+                return {
+                    amount: parseInt(num), 
+                    currency: this.$t("index.currencyName"),
+                    paymentMethod: 'card'
+                }
             }
         },
         methods: {
@@ -40,7 +48,7 @@
                     this.stripe = Stripe(stripeKey.key)
 
                     // dire a stripe que je souhaite faire un payment (envoie le montant notamment) et de commencer à enregistrer = enregistre ainsi les echec ou les annulation
-                    await this.$axios.$post('http://localhost:8000/api/stripe/create-payment-intent', JSON.stringify(this.amount), {
+                    await this.$axios.$post('http://localhost:8000/api/stripe/create-payment-intent', JSON.stringify(this.cardDetail), {
                         headers: {
                         "content-type": "application/json",
                         },
@@ -70,6 +78,7 @@
                         postal_code: '44000'
                     }
                 }
+                // save to db table achat but payment on process
                 const {error} = await this.stripe.confirmPayment({
                     elements: this.elements,
                     confirmParams: {

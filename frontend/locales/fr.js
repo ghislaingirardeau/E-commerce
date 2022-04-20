@@ -19,6 +19,7 @@ export default {
     search: 'Rechercher',
     category: 'Catégorie',
     currency: "€",
+    currencyName: "eur",
     cardMore: "En savoir plus",
     cardCart: "Ajouter",
     cardTitle: "Origine",

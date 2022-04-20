@@ -49,7 +49,7 @@
       </v-simple-table>
     </v-col>
 
-    <onlinePayment />
+    <onlinePayment :totalCart="totalCart" />
 
     <nuxt-link style="text-decoration: none" :to="localePath('/')">
       <v-btn @click="goBack"> back </v-btn>
@@ -102,7 +102,7 @@ export default {
         let length = total.length - 2;
         let centimes = total.slice(length);
         let amount = total.slice(0, length);
-        return amount.concat(",", centimes);
+        return amount.concat(".", centimes);
       } catch (error) {
         console.log(error);
       }

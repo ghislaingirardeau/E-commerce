@@ -134,7 +134,7 @@
                 let length = el.length - 2;
                 let centimes = el.slice(length);
                 let amount = el.slice(0, length);
-                return amount.concat(",", centimes);
+                return amount.concat(".", centimes);
             },
         },
     }
