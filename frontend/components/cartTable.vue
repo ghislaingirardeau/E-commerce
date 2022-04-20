@@ -2,7 +2,6 @@
     <v-col cols="12" >
       <v-simple-table
         fixed-header
-        :height="height"
       >
         <template v-slot:default>
             <thead v-if="screenBreakpoint">
@@ -82,13 +81,13 @@
                     <th></th>
                     <th></th>
                     <th></th>
-                    <th class="text-center">Totals</th>
+                    <th class="text-center text-subtitle-1 font-weight-bold">Totals</th>
                     <td class="text-center">{{totalCart}} {{ $t("index.currency") }}</td>
                 </tr>
             </tfoot>
             <tfoot v-else>
                 <tr>
-                    <th class="text-center">Totals</th>
+                    <th class="text-center text-subtitle-1 font-weight-bold">Totals</th>
                     <td class="text-center">{{totalCart}} {{ $t("index.currency") }}</td>
                 </tr>
             </tfoot>
@@ -113,10 +112,10 @@
         computed: {
             screenBreakpoint() {
                 if (this.$vuetify.breakpoint.width > 600) {
-                    this.height = '300px'
+                    /* this.height = '300px' */ // remove ??
                     return true
                 } else {
-                    this.height = '600px'
+                    /* this.height = '600px' */ // remove ??
                     return false
                 }
             },
