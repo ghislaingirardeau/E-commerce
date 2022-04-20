@@ -87,7 +87,7 @@ export default {
           this.cartLocalStorage = JSON.parse(localStorage.getItem('Ecommerce'))
           return this.cartArticles;
       } catch (error) {
-        console.log(error);
+        console.log('cart empty');
       }
     },
     totalCart() {
@@ -104,7 +104,7 @@ export default {
         let amount = total.slice(0, length);
         return amount.concat(".", centimes);
       } catch (error) {
-        console.log(error);
+        console.log('cart empty');
       }
     },
   },

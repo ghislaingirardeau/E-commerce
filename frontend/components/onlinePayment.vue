@@ -31,12 +31,16 @@
         },
         computed: {
             cardDetail() {
-                let amount = this.totalCart.split('.')
-                let num = amount[0].concat(amount[1])
-                return {
-                    amount: parseInt(num), 
-                    currency: this.$t("index.currencyName"),
-                    paymentMethod: 'card'
+                try {
+                    let amount = this.totalCart.split('.')
+                    let num = amount[0].concat(amount[1])
+                    return {
+                        amount: parseInt(num), 
+                        currency: this.$t("index.currencyName"),
+                        paymentMethod: 'card'
+                    }
+                } catch (error) {
+                    console.log('empty cart');
                 }
             }
         },
