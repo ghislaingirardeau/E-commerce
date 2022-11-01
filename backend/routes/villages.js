@@ -7,5 +7,7 @@ const router = express.Router()
 router.post('/', villages.allVillages)
 router.post('/:id', villages.oneVillage)
 
+router.get('/fetch', villages.fetchVillages)
+
 
 module.exports = router
